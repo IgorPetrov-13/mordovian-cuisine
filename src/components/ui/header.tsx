@@ -1,4 +1,5 @@
 'use client';
+import { layoutConfig } from '@/config/layout.config';
 import { siteConfig } from '@/config/site.config';
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Button } from '@heroui/react';
 import Link from 'next/link';
@@ -22,7 +23,7 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <Navbar>
+    <Navbar className={`h-[${layoutConfig.headerHeight}]`}>
       <NavbarBrand>
         <Logo />
       </NavbarBrand>

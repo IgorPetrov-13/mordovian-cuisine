@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { siteConfig } from '@/config/site.config';
+import { layoutConfig } from '@/config/layout.config';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -30,7 +31,15 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Providers>
           <Header />
-          {children}
+          <main
+            className={`flex justify-center items-center`}
+            style={{ height: `calc(100vh  - ${layoutConfig.footerHeight} - ${layoutConfig.headerHeight})` }}
+          >
+            {children}
+          </main>
+          <footer className={`flex justify-center items-center h-[${layoutConfig.footerHeight}]`}>
+            <p>{siteConfig.description}</p>
+          </footer>
         </Providers>
       </body>
     </html>

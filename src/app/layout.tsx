@@ -1,4 +1,4 @@
-import Header from '@/components/ui/header';
+import Header from '@/components/ui/layout/header';
 import { Providers } from '@/providers/provider';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';

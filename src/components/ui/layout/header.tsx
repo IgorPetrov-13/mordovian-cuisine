@@ -45,7 +45,7 @@ export default function Header() {
         })}
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
+        <NavbarItem className="lg:flex">
           <Button as={Link} color="secondary" href="#" variant="flat" onPress={() => setIsLoginModalOpen(true)}>
             Логин
           </Button>

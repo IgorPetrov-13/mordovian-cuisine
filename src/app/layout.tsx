@@ -5,6 +5,8 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { siteConfig } from '@/config/site.config';
 import { layoutConfig } from '@/config/layout.config';
+import { SessionProvider } from 'next-auth/react';
+import { auth } from '@/auth/auth';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -21,25 +23,28 @@ export const metadata: Metadata = {
   description: siteConfig.description,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Providers>
-          <Header />
-          <main
-            className={`flex justify-center items-center`}
-            style={{ height: `calc(100vh  - ${layoutConfig.footerHeight} - ${layoutConfig.headerHeight})` }}
-          >
-            {children}
-          </main>
-          <footer className={`flex justify-center items-center h-[${layoutConfig.footerHeight}]`}>
-            <p>{siteConfig.description}</p>
-          </footer>
+          <SessionProvider session={session}>
+            <Header />
+            <main
+              className={`flex justify-center items-center`}
+              style={{ height: `calc(100vh  - ${layoutConfig.footerHeight} - ${layoutConfig.headerHeight})` }}
+            >
+              {children}
+            </main>
+            <footer className={`flex justify-center items-center h-[${layoutConfig.footerHeight}]`}>
+              <p>{siteConfig.description}</p>
+            </footer>
+          </SessionProvider>
         </Providers>
       </body>
     </html>

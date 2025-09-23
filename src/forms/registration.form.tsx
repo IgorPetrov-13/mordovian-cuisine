@@ -1,4 +1,5 @@
 'use client';
+import { registerUser } from '@/actions/register';
 import { Form } from '@heroui/form';
 import { Input } from '@heroui/input';
 import { Button } from '@heroui/react';
@@ -27,9 +28,16 @@ function RegistrationForm({ onClose }: Props) {
   const validateConfirmPassword = (cpassword: string) => {
     if (cpassword !== formData.password) return 'Пароли должны совпадать';
   };
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Форма отправлена с данными:', formData);
+
+    const result = await registerUser(formData);
+    if (result) {
+      console.log('Регистрация успешна');
+    } else {
+      console.log('Ошибка регистрации');
+    }
     onClose();
   };
 

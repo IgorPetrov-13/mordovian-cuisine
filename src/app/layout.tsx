@@ -1,12 +1,12 @@
+import { auth } from '@/auth/auth';
 import Header from '@/components/ui/layout/header';
+import { layoutConfig } from '@/config/layout.config';
+import { siteConfig } from '@/config/site.config';
 import { Providers } from '@/providers/provider';
 import type { Metadata } from 'next';
+import { SessionProvider } from 'next-auth/react';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import { siteConfig } from '@/config/site.config';
-import { layoutConfig } from '@/config/layout.config';
-import { SessionProvider } from 'next-auth/react';
-import { auth } from '@/auth/auth';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -29,6 +29,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
+  
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>

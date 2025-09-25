@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import RegistrationModal from '../modals/registration.modal';
 import { useState } from 'react';
 import LoginModal from '../modals/login.modal';
+import { signOutFunc } from '@/actions/sign-out';
 
 export const Logo = () => {
   return (
@@ -27,6 +28,10 @@ export default function Header() {
   const [isRegModalOpen, setIsRegModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
+  const handelSignOut = async () => {
+    await signOutFunc();
+  };
+
   return (
     <Navbar className={`h-[${layoutConfig.headerHeight}]`}>
       <NavbarBrand>
@@ -45,6 +50,11 @@ export default function Header() {
         })}
       </NavbarContent>
       <NavbarContent justify="end">
+        <NavbarItem className="lg:flex">
+          <Button as={Link} color="secondary" href="#" variant="flat" onPress={handelSignOut}>
+            Выйти
+          </Button>
+        </NavbarItem>
         <NavbarItem className="lg:flex">
           <Button as={Link} color="secondary" href="#" variant="flat" onPress={() => setIsLoginModalOpen(true)}>
             Логин

@@ -1,6 +1,7 @@
 'use server';
 
 import { IFormData } from '@/types/form-data';
+import { saltAndHashPassword } from '@/utils/password';
 import prisma from '@/utils/prisma';
 
 export async function registerUser(params: IFormData) {
@@ -10,11 +11,16 @@ export async function registerUser(params: IFormData) {
     throw new Error('Passwords do not match');
   }
 
+  if (password.length < 6) {
+    throw new Error('Password must be at least 6 characters long');
+  }
+
   try {
+    const hashedPassword = await saltAndHashPassword(password);
     const user = await prisma.user.create({
       data: {
         email,
-        password,
+        password: hashedPassword,
       },
     });
     return user;

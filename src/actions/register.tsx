@@ -16,6 +16,12 @@ export async function registerUser(params: IFormData) {
   }
 
   try {
+    const existingUser = await prisma.user.findUnique({ where: { email } });
+
+    if (existingUser) {
+      throw new Error('User with this email already exists');
+    }
+
     const hashedPassword = await saltAndHashPassword(password);
     const user = await prisma.user.create({
       data: {

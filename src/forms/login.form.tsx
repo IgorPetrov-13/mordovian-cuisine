@@ -1,4 +1,5 @@
 'use client';
+import { signInWithCredentials } from '@/actions/sign-in';
 import { Form } from '@heroui/form';
 import { Input } from '@heroui/input';
 import { Button } from '@heroui/react';
@@ -23,9 +24,11 @@ function LoginForm({ onclose }: Props) {
     if (password.length < 6) return 'Не менее шести символов';
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Форма отправлена с данными:', formData);
+
+    const result = await signInWithCredentials(formData.email, formData.password);
     onclose();
   };
 

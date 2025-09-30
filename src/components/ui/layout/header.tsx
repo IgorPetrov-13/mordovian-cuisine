@@ -29,7 +29,6 @@ export default function Header() {
 
   const { isAuth, session, status, setAuthState } = useAuthStore();
 
-
   const [isRegModalOpen, setIsRegModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
@@ -40,8 +39,6 @@ export default function Header() {
     } catch (error) {
       console.log(error);
     }
-    
-    
   };
 
   return (
@@ -63,7 +60,9 @@ export default function Header() {
       </NavbarContent>
       <NavbarContent justify="end">
         {isAuth && <p>Hello, {session?.user?.name}</p>}
-        {isAuth ? (
+        {status === 'loading' ? (
+          <p>Loading...</p>
+        ) : isAuth ? (
           <NavbarItem className="lg:flex">
             <Button as={Link} color="secondary" href="#" variant="flat" onPress={handelSignOut}>
               Выйти

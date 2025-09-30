@@ -1,3 +1,4 @@
+'use client';
 import { useAuthStore } from '@/store/auth.store';
 import { useSession } from 'next-auth/react';
 import React, { useEffect } from 'react';

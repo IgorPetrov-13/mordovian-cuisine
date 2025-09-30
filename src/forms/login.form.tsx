@@ -28,7 +28,9 @@ function LoginForm({ onclose }: Props) {
     e.preventDefault();
     console.log('Форма отправлена с данными:', formData);
 
-    const result = await signInWithCredentials(formData.email, formData.password);
+    await signInWithCredentials(formData.email, formData.password);
+
+    window.location.reload();
     onclose();
   };
 

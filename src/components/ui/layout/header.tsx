@@ -2,8 +2,8 @@
 import { signOutFunc } from '@/actions/sign-out';
 import { layoutConfig } from '@/config/layout.config';
 import { siteConfig } from '@/config/site.config';
+import { useAuthStore } from '@/store/auth.store';
 import { Button, Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@heroui/react';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
@@ -26,14 +26,22 @@ export const Logo = () => {
 
 export default function Header() {
   const pathname = usePathname();
-  const { data: session, status } = useSession();
-  const isAuth = status === 'authenticated';
+
+  const { isAuth, session, status, setAuthState } = useAuthStore();
+
 
   const [isRegModalOpen, setIsRegModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const handelSignOut = async () => {
-    await signOutFunc();
+    try {
+      await signOutFunc();
+      setAuthState('unauthenticated', null);
+    } catch (error) {
+      console.log(error);
+    }
+    
+    
   };
 
   return (

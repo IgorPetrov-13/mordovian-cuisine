@@ -1,5 +1,11 @@
+import PageContent from '@/components/common/page-content';
+
 function AboutPage() {
-  return <div>AboutPage</div>;
+  return (
+    <div>
+      <PageContent />
+    </div>
+  );
 }
 
 export default AboutPage;

@@ -9,7 +9,7 @@ function Title() {
 
   const pageTitle = currentNavItem?.label ?? siteConfig.title;
   return (
-    <div className="w-full flex justify-center items-center">
+    <div className="w-full flex justify-center items-center my-6">
       <h1 className="text-3xl font-bold">{pageTitle}</h1>
     </div>
   );

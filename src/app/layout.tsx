@@ -41,7 +41,7 @@ export default async function RootLayout({
               <Header />
               <Title />
               <main
-                className={`flex justify-center items-center`}
+                className={`flex justify-center items-center px-[24px] mx-auto max-w[1024px]`}
                 style={{ height: `calc(100vh  - ${layoutConfig.footerHeight} - ${layoutConfig.headerHeight})` }}
               >
                 {children}

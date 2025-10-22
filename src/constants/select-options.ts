@@ -1,23 +1,15 @@
 export const CATEGORY_OPTIONS = [
-  { value: 'vegetables', label: 'Овощи' },
-  { value: 'fruits', label: 'Фрукты' },
-  { value: 'meat', label: 'Мясо' },
-  { value: 'fish', label: 'Рыба' },
-  { value: 'dairy', label: 'Молоко' },
-  { value: 'grains', label: 'Сыры' },
-  { value: 'nuts', label: 'Семена' },
-  { value: 'beverages', label: 'Напитки' },
-  { value: 'spices', label: 'Специи' },
-  { value: 'sweets', label: 'Сладкие' },
-  { value: 'desserts', label: 'Десерты' },
-  { value: 'snacks', label: 'Закуски' },
-  { value: 'drinks', label: 'Напитки' },
+  { value: 'VEGETABLES', label: 'Овощи' },
+  { value: 'FRUITS', label: 'Фрукты' },
+  { value: 'MEAT', label: 'Мясо' },
+  { value: 'FISH', label: 'Рыба' },
+  { value: 'DAIRY', label: 'Молоко' },
+  { value: 'SPICES', label: 'Специи' },
+  { value: 'OTHER', label: 'Напитки' },
 ] as const;
-
 export const UNIT_OPTIONS = [
-  { value: 'kg', label: 'кг' },
-  { value: 'g', label: 'г' },
-  { value: 'ml', label: 'мл' },
-  { value: 'pieces', label: 'шт' },
+  { value: 'KG', label: 'кг' },
+  { value: 'G', label: 'г' },
+  { value: 'ML', label: 'мл' },
+  { value: 'PIECES', label: 'порций' },
 ] as const;
-

@@ -1,7 +1,8 @@
-import { CATEGORY_OPTIONS } from '@/constants/select-options';
+'use client';
+import { CATEGORY_OPTIONS, UNIT_OPTIONS } from '@/constants/select-options';
 import { Form } from '@heroui/form';
 import { Input } from '@heroui/input';
-import { form, Select, SelectItem } from '@heroui/react';
+import { Button, Select, SelectItem } from '@heroui/react';
 import React from 'react';
 
 function IngredientForm() {
@@ -24,7 +25,6 @@ function IngredientForm() {
         <Input
           isRequired
           name="name"
-          label="Название"
           placeholder="Название ингредиента"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -39,7 +39,6 @@ function IngredientForm() {
             <Select
               isRequired
               name="category"
-              label="Категория"
               placeholder="Категория ингредиента"
               classNames={{
                 trigger: 'bg-default-100 w-full',
@@ -57,26 +56,50 @@ function IngredientForm() {
               ))}
             </Select>
           </div>
-          <div className="w-1/3"></div>
-          <div className="w-1/3"></div>
+          <div className="w-1/3">
+            <Select
+              isRequired
+              name="unit"
+              selectedKeys={formData.unit ? [formData.unit] : []}
+              classNames={{
+                trigger: 'bg-default-100 w-full',
+                innerWrapper: 'text-sm',
+                value: 'truncate',
+                selectorIcon: 'text-black',
+              }}
+              onChange={(e) => setFormData({ ...formData, unit: e.target.value })}
+            >
+              {UNIT_OPTIONS.map((option) => (
+                <SelectItem key={option.value} className="text-black">
+                  {option.label}
+                </SelectItem>
+              ))}
+            </Select>
+          </div>
+          <div className="w-1/3">
+            <Input
+              isRequired
+              name="pricePerUnit"
+              placeholder="Цена за единицу"
+              value={formData.pricePerUnit !== null ? formData.pricePerUnit.toString() : ''}
+              classNames={{
+                inputWrapper: 'bg-default-100',
+                input: 'text-sm focus:outline-none',
+              }}
+              onChange={(e) => {
+                const value = e.target.value ? parseFloat(e.target.value) : null;
+                setFormData({ ...formData, pricePerUnit: value });
+              }}
+              endContent={<span className="absolute right-3 top-1/2 -translate-y-1/2 text-black">₽</span>}
+              validate={(value) => value.length > 0 || 'Цена обязательна'}
+            />
+          </div>
         </div>
-
-        <Input
-          isRequired
-          name="unit"
-          label="Единица измерения"
-          placeholder="Единица измерения"
-          value={formData.unit}
-          onChange={(e) => setFormData({ ...formData, unit: e.target.value })}
-        />
-        <Input
-          isRequired
-          name="pricePerUnit"
-          label="Цена за единицу"
-          placeholder="Цена за единицу"
-          value={formData.pricePerUnit}
-          onChange={(e) => setFormData({ ...formData, pricePerUnit: e.target.value })}
-        />
+        <div className="flex w-full gap-2 items-center justify-end">
+          <Button color="primary" type="submit">
+            Добавить ингредиент
+          </Button>
+        </div>
       </Form>
     </div>
   );

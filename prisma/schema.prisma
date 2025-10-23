@@ -79,8 +79,8 @@ model Ingredient {
   description   String?
   createdAt     DateTime               @default(now()) @map("created_at")
   updatedAt     DateTime               @updatedAt @map("updated_at")
-  ingredients   Ingredient[]           @relation("IngredientToIngredient")
-  recipes       Recipe[]               @relation("RecipeToIngredient")
+  //ingredients   Ingredient[]           @relation("IngredientToIngredient")
+ // recipes       Recipe[]               @relation("RecipeToIngredient")
 
   @@map("ingredients")
 }

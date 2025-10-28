@@ -2,7 +2,7 @@
 
 import { ingredientSchema } from '@/schema/zod';
 import prisma from '@/utils/prisma';
-import { success, ZodError } from 'zod';
+import { ZodError } from 'zod';
 
 export async function createIngredient(formData: FormData) {
   try {
@@ -44,6 +44,9 @@ export async function getIngredients() {
 
     return { success: true, ingredients };
   } catch (error) {
+    if (error instanceof ZodError) {
+      return { error: error.message };
+    }
     console.error('Ошибка получения ингредиентов:', error);
   }
 }
@@ -51,8 +54,11 @@ export async function getIngredients() {
 export async function deleteIngredient(id: string) {
   try {
     const ingredient = await prisma.ingredient.delete({ where: { id } });
-     return { success: true, ingredient };
+    return { success: true, ingredient };
   } catch (error) {
+     if (error instanceof ZodError) {
+      return { error: error.message };
+    }
     console.error('Ошибка удаления ингредиента:', error);
   }
 }

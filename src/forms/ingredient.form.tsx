@@ -1,6 +1,7 @@
 'use client';
 import { createIngredient } from '@/actions/ingredient';
 import { CATEGORY_OPTIONS, UNIT_OPTIONS } from '@/constants/select-options';
+import { useIngredientStore } from '@/store/ingredient.store';
 import { Form } from '@heroui/form';
 import { Input } from '@heroui/input';
 import { Button, Select, SelectItem } from '@heroui/react';
@@ -20,14 +21,18 @@ function IngredientForm() {
 
   const [isPending, startTransition] = useTransition();
 
+  const { addIngredient } = useIngredientStore();
+
   const handelSubmit = async (formData: FormData) => {
     console.log(formData);
 
     startTransition(async () => {
-      const result = await createIngredient(formData);
+      await addIngredient(formData);
 
-      if (result?.error) {
-        setError(result.error);
+      const storeError = useIngredientStore.getState().error;
+
+      if (storeError) {
+        setError(storeError);
       } else {
         setError(null);
         setFormData(initialState);

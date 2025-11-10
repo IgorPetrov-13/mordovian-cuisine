@@ -1,5 +1,4 @@
 'use client';
-import { createIngredient } from '@/actions/ingredient';
 import { CATEGORY_OPTIONS, UNIT_OPTIONS } from '@/constants/select-options';
 import { useIngredientStore } from '@/store/ingredient.store';
 import { Form } from '@heroui/form';
@@ -116,6 +115,18 @@ function IngredientForm() {
             />
           </div>
         </div>
+
+        <Input
+          name="description"
+          placeholder="Введите описание (необязательно)"
+          type="text"
+          value={formData.description}
+          classNames={{
+            inputWrapper: 'bg-default-100',
+            input: 'text-sm focus:outline-none',
+          }}
+          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+        />
 
         {error && <p className="text-red-500 mb-4">{error}</p>}
 

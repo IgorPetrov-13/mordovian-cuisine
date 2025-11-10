@@ -56,7 +56,7 @@ export async function deleteIngredient(id: string) {
     const ingredient = await prisma.ingredient.delete({ where: { id } });
     return { success: true, ingredient };
   } catch (error) {
-     if (error instanceof ZodError) {
+    if (error instanceof ZodError) {
       return { error: error.message };
     }
     console.error('Ошибка удаления ингредиента:', error);

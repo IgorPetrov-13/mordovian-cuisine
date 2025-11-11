@@ -41,7 +41,7 @@ function IngredientForm() {
 
   return (
     <div>
-      <Form className="w-[400px]" action={handelSubmit}>
+      <Form className="w-full" action={handelSubmit}>
         <Input
           isRequired
           name="name"

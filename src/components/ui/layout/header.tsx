@@ -47,16 +47,23 @@ export default function Header() {
         <Logo />
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        {siteConfig.navItems.map((nav) => {
-          const isActive = pathname === nav.href;
-          return (
-            <NavbarItem key={nav.href}>
-              <Link color="foreground" href={nav.href} className={isActive ? 'text-blue-500' : 'text-foreground'}>
-                {nav.label}
-              </Link>
-            </NavbarItem>
-          );
-        })}
+        {siteConfig.navItems
+          .filter((item) => {
+            if (item.href === '/ingredients') {
+              return isAuth;
+            }
+            return true;
+          })
+          .map((nav) => {
+            const isActive = pathname === nav.href;
+            return (
+              <NavbarItem key={nav.href}>
+                <Link color="foreground" href={nav.href} className={isActive ? 'text-blue-500' : 'text-foreground'}>
+                  {nav.label}
+                </Link>
+              </NavbarItem>
+            );
+          })}
       </NavbarContent>
       <NavbarContent justify="end">
         {isAuth && <p>Hello, {session?.user?.name}</p>}

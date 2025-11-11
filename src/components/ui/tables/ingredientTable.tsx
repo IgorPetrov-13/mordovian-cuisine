@@ -1,9 +1,11 @@
+'use client';
+
 import { CATEGORY_OPTIONS, UNIT_OPTIONS } from '@/constants/select-options';
 import { useAuthStore } from '@/store/auth.store';
 import { useIngredientStore } from '@/store/ingredient.store';
 import { Button, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@heroui/react';
 
-function IngredientTable() {
+const IngredientsTable = () => {
   const { ingredients, removeIngredient, isLoading } = useIngredientStore();
   const { isAuth } = useAuthStore();
 
@@ -20,6 +22,10 @@ function IngredientTable() {
     const option = UNIT_OPTIONS.find((opt) => opt.value === value);
     return option ? option.label : value;
   };
+
+  if (!isAuth) {
+    return <p>Не авторизован</p>;
+  }
 
   return !isLoading && isAuth ? (
     <Table
@@ -59,6 +65,6 @@ function IngredientTable() {
   ) : (
     <p className="mt-4">Загрузка...</p>
   );
-}
+};
 
-export default IngredientTable;
+export default IngredientsTable;

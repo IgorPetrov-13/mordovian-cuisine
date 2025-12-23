@@ -19,7 +19,7 @@ export const getRecipes = async () => {
   }
 };
 
-export const createRecipes = async (formData: FormData) => {
+export const createRecipe = async (formData: FormData) => {
   try {
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;
@@ -64,7 +64,7 @@ export const createRecipes = async (formData: FormData) => {
   }
 };
 
-export const updateRecipes = async (id: string, formData: FormData) => {
+export const updateRecipe = async (id: string, formData: FormData) => {
   try {
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;
@@ -113,7 +113,7 @@ export const updateRecipes = async (id: string, formData: FormData) => {
   }
 };
 
-export const deleteRecipes = async (id: string) => {
+export const deleteRecipe = async (id: string) => {
   try {
     if (!id) {
       return { error: 'Не указан id', success: false };

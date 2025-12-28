@@ -52,23 +52,31 @@ export const useRecipeStore = create<IRecipeState>((set) => ({
       }
     } catch (error) {
       console.error(error);
-      set({ error: 'Ошибка при добавлении рецепта', isLoading: false });
+      const errorMessage = error instanceof Error ? error.message : 'Ошибка при добавлении рецепта';
+      set({ error: errorMessage, isLoading: false });
+      return { success: false, error: errorMessage };
     }
   },
   updateRecipe: async (id: string, formData: FormData) => {
+    set({ isLoading: true, error: null });
     try {
       const result = await updateRecipe(id, formData);
       if (result?.success && result.recipe) {
         set((state) => ({
-          recipes: state.recipes.map((recipe) => (recipe.id === id ? result.recipe : recipe)),
+          recipes: state.recipes.map((recipe) => (recipe.id === id ? result.recipe! : recipe)),
           isLoading: false,
         }));
+        return { success: true, recipe: result.recipe };
       } else {
-        set({ error: result?.error, isLoading: false });
+        const error = result?.error || 'Неизвестная ошибка';
+        set({ error, isLoading: false });
+        return { success: false, error };
       }
     } catch (error) {
       console.error(error);
-      set({ error: 'Ошибка при обновлении рецепта', isLoading: false });
+      const errorMessage = error instanceof Error ? error.message : 'Ошибка при обновлении рецепта';
+      set({ error: errorMessage, isLoading: false });
+      return { success: false, error: errorMessage };
     }
   },
   removeRecipe: async (id: string) => {

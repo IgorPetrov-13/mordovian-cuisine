@@ -1,7 +1,7 @@
+'use client';
 import RecipeCard from '@/components/common/recipe-card';
 import { useRecipeStore } from '@/store/recipe.store';
 import { Button } from '@heroui/react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Home() {
